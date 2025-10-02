@@ -14,9 +14,11 @@ from torchvision import transforms
 # ========= 训练集部分（你已有的） =========
 def get_train_dataset(data_root):
     transform = transforms.Compose([
+        transforms.RandomCrop(32, padding=4),
+        transforms.RandomHorizontalFlip(),
+        transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
         transforms.ToTensor(),
-        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5),
-                             transforms.RandomVerticalFlip())
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
     train_dataset = torchvision.datasets.CIFAR10(root=data_root,
                                                  train=True,
